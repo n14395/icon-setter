@@ -81,23 +81,31 @@ struct DesignEditorView: View {
         .scrollContentBackground(.hidden)
     }
 
+    /// One palette per fill style, 28 swatches drawn for the way that style
+    /// paints. Each swatch previews exactly what tapping it produces.
     private func presetSwatches(spec: Binding<GeneratedIconSpec>) -> some View {
-        LabeledContent("Presets") {
-            LazyVGrid(columns: [GridItem(.adaptive(minimum: 26), spacing: 6)], spacing: 6) {
-                ForEach(GradientPreset.all) { preset in
+        let style = spec.wrappedValue.fillStyle
+        let side: CGFloat = 26
+        return VStack(alignment: .leading, spacing: 6) {
+            Text("\(style.label) presets")
+                .font(.callout)
+                .foregroundStyle(.secondary)
+            LazyVGrid(columns: [GridItem(.adaptive(minimum: side + 2), spacing: 7)],
+                      alignment: .leading, spacing: 7) {
+                ForEach(GradientPreset.presets(for: style)) { preset in
                     Button {
                         spec.wrappedValue.apply(preset)
                     } label: {
                         Circle()
-                            .fill(LinearGradient(colors: [preset.primary, preset.secondary],
-                                                 startPoint: .top, endPoint: .bottom))
+                            .fill(preset.fill(for: style, side: side))
                             .overlay(Circle().strokeBorder(.black.opacity(0.15), lineWidth: 0.5))
-                            .frame(width: 24, height: 24)
+                            .frame(width: side, height: side)
                     }
                     .buttonStyle(.plain)
                     .help(preset.name)
                 }
             }
         }
+        .frame(maxWidth: .infinity, alignment: .leading)
     }
 }

@@ -6,8 +6,11 @@ A small native macOS app for giving folders (and files) custom icons.
 
 - **Design** an icon from a colour or gradient plus any SF Symbol. Two shapes:
   the system folder recoloured with the symbol on its front, or an app-icon style
-  squircle. Solid, linear (with angle) and radial fills, a dozen gradient presets,
-  and symbol colour / size / weight / opacity controls.
+  squircle. Solid, linear (with angle) and radial fills, each with its own
+  palette of 28 presets: flat hues, earth tones and neutrals for solid; bold
+  cross-hue blends and lit-to-near-black ramps for linear; glowing cores falling
+  to deep rims for radial. Swatches paint the way the current fill style will.
+  Symbol colour / size / weight / opacity controls.
 - **App Icons**: browse and search the icons of every app installed on the Mac
   and apply one to a folder. "Other App…" picks a bundle anywhere on disk.
 - **Image File**: drop, choose or paste a PNG, JPEG, HEIC, TIFF, GIF, SVG, PDF or
