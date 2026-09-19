@@ -34,7 +34,7 @@ BUNDLE_ID="com.n14395.icon-setter"
 ENTITLEMENTS=""
 # Where --sparkle builds look for updates. `--sparkle --publish` attaches appcast.xml
 # to every GitHub release, and this URL always resolves to the newest release's copy.
-SPARKLE_FEED_URL=""
+SPARKLE_FEED_URL="https://github.com/n14395/icon-setter/releases/latest/download/appcast.xml"
 
 # Exported from ~/.zshrc. The literal fallback keeps the script working when it is
 # run from a shell that never sourced it (cron, a GUI runner, `env -i`).
@@ -576,11 +576,13 @@ build_app() {
 }
 
 # Where this project keeps its version: MARKETING_VERSION in project.yml, once
-# per target (an App Store upload needs them equal). build_app regenerates the
-# .xcodeproj from it.
-VERSION_FILES=(project.yml)
+# per target (an App Store upload needs them equal), mirrored into the tracked
+# Xcode project xcodegen makes from it. build_app regenerates the .xcodeproj
+# whenever project.yml is newer.
+VERSION_FILES=(project.yml IconSetter.xcodeproj/project.pbxproj)
 set_version() {
     sed -i '' -E "s/^([[:space:]]*MARKETING_VERSION: )\"[0-9.]+\"/\1\"$1\"/" project.yml
+    sed -i '' -E "s/(MARKETING_VERSION = )[0-9.]+;/\1$1;/" IconSetter.xcodeproj/project.pbxproj
 }
 
 mkdir -p "$BUILD_DIR"

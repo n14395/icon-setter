@@ -61,15 +61,17 @@ IconSetter/Models/               GeneratedIconSpec (the design), TargetItem
 IconSetter/Rendering/            IconArtworkView (the design, drawn at any size) and IconRenderer
 IconSetter/Services/             SFSymbolCatalog, AppCatalog, IconApplier
 IconSetter/Views/                SwiftUI screens
-Scripts/make-app-icon.swift      Renders the app's own icon with IconArtworkView
+Design/AppIcon.svg               The app's own icon (source of truth for the asset catalog)
+Scripts/make-app-icon.swift      Rasterises Design/AppIcon.svg into the asset catalog
 build.sh                         Build, package, sign and publish (see above)
 ```
 
-To regenerate the app icon after changing the artwork:
+The app icon is `Design/AppIcon.svg` (a stack of five folders in tints of the
+app's indigo, on graphite). To regenerate the asset catalog after editing it:
 
 ```sh
-swiftc -swift-version 6 -O -parse-as-library -o /tmp/make-app-icon \
-  IconSetter/Models/GeneratedIconSpec.swift IconSetter/Rendering/IconArtworkView.swift \
-  Scripts/make-app-icon.swift
-/tmp/make-app-icon IconSetter/Resources/Assets.xcassets/AppIcon.appiconset
+swiftc -swift-version 6 -O -parse-as-library -o /tmp/make-app-icon Scripts/make-app-icon.swift
+/tmp/make-app-icon Design/AppIcon.svg IconSetter/Resources/Assets.xcassets/AppIcon.appiconset
 ```
+
+AppKit renders the SVG itself, so nothing beyond the toolchain is needed.
