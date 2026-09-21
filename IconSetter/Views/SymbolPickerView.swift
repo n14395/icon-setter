@@ -19,7 +19,10 @@ struct SymbolPickerView: View {
                 ProgressView("Loading symbols…")
                     .frame(maxWidth: .infinity, maxHeight: .infinity)
             } else if results.isEmpty {
+                // Has to claim the space the grid would have taken, or the
+                // whole column shrinks to fit and the parent centres it.
                 ContentUnavailableView.search(text: query)
+                    .frame(maxWidth: .infinity, maxHeight: .infinity)
             } else {
                 grid
             }

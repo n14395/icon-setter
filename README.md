@@ -2,6 +2,10 @@
 
 A small native macOS app for giving folders (and files) custom icons.
 
+<p align="center">
+  <img src="docs/01-design.png" width="720" alt="Icon Setter's window: the Targets sidebar listing six folders, the Design editor with shape, fill and preset controls, the searchable SF Symbol browser, and the live preview at all four Finder sizes">
+</p>
+
 ## Features
 
 - **Design** an icon from a colour or gradient plus any SF Symbol. Two shapes:
@@ -23,6 +27,10 @@ A small native macOS app for giving folders (and files) custom icons.
 - **Reset to Default Icon** strips a custom icon again.
 - Icons are written with every size Finder uses (16 px to 1024 px), each drawn
   natively rather than downsampled.
+
+<p align="center">
+  <img src="docs/04-finder-mixed.png" width="720" alt="A Finder window in icon view showing six folders, each with its own custom icon: a different colour and SF Symbol per folder">
+</p>
 
 ## Building
 

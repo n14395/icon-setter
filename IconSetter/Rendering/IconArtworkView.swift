@@ -9,8 +9,6 @@ struct IconArtworkView: View {
     let spec: GeneratedIconSpec
     let side: CGFloat
 
-    @MainActor private static let folderImage: NSImage = NSWorkspace.shared.icon(for: UTType.folder)
-
     var body: some View {
         ZStack {
             switch spec.shape {
@@ -48,7 +46,7 @@ struct IconArtworkView: View {
     /// multiplied by a brightened greyscale copy so the tab and panel edges keep
     /// their shading.
     private var folderLayer: some View {
-        let folder = Image(nsImage: Self.folderImage).resizable().interpolation(.high)
+        let folder = Image(nsImage: FolderIcon.image(side: side)).resizable().interpolation(.high)
         return ZStack {
             Rectangle()
                 .fill(fill)
@@ -95,5 +93,61 @@ struct IconArtworkView: View {
             .opacity(spec.symbolOpacity)
             .shadow(color: .black.opacity(0.22), radius: side * 0.012, y: side * 0.01)
             .offset(y: yOffset)
+    }
+}
+
+/// The system folder icon, rasterised to order.
+///
+/// `NSWorkspace.icon(for:)` hands back an image that measures 32×32 points
+/// however much detail it really holds, and SwiftUI resolves `Image(nsImage:)`
+/// against that nominal size — so drawing it into a 1024 pt frame blows the
+/// 64 px @2x representation up sixteenfold, which is the blur that used to end
+/// up on disk. Drawing it into a context of the true pixel size instead lets
+/// AppKit pick the artwork Apple drew for that size.
+@MainActor
+private enum FolderIcon {
+    private static var cache: [CGFloat: NSImage] = [:]
+
+    /// An image measuring `side` points and carrying both 1× and 2× pixels, so
+    /// it stays sharp in the offscreen render and on a Retina screen alike.
+    static func image(side: CGFloat) -> NSImage {
+        if let cached = cache[side] { return cached }
+
+        let source = NSWorkspace.shared.icon(for: UTType.folder)
+        let sized = NSImage(size: NSSize(width: side, height: side))
+        for scale in [1.0, 2.0] as [CGFloat] {
+            if let rep = rasterise(source, side: side, scale: scale) {
+                sized.addRepresentation(rep)
+            }
+        }
+
+        // If it refused to draw at all, the unscaled system image still beats nothing.
+        let image = sized.representations.isEmpty ? source : sized
+        cache[side] = image
+        return image
+    }
+
+    private static func rasterise(_ source: NSImage, side: CGFloat, scale: CGFloat) -> NSBitmapImageRep? {
+        let pixels = Int((side * scale).rounded())
+        guard pixels > 0, let rep = NSBitmapImageRep(
+            bitmapDataPlanes: nil, pixelsWide: pixels, pixelsHigh: pixels,
+            bitsPerSample: 8, samplesPerPixel: 4, hasAlpha: true, isPlanar: false,
+            colorSpaceName: .deviceRGB, bytesPerRow: 0, bitsPerPixel: 0
+        ), let context = NSGraphicsContext(bitmapImageRep: rep) else { return nil }
+
+        // The context's user space follows the rep's size, which is still one
+        // point per pixel here — so the draw below asks for `pixels` points and
+        // AppKit resolves the representation at that size. Only afterwards does
+        // the rep get relabelled as `side` points, making it the scale× variant.
+        NSGraphicsContext.saveGraphicsState()
+        NSGraphicsContext.current = context
+        context.imageInterpolation = .high
+        source.draw(in: NSRect(x: 0, y: 0, width: pixels, height: pixels), from: .zero,
+                    operation: .sourceOver, fraction: 1, respectFlipped: true,
+                    hints: [.interpolation: NSImageInterpolation.high])
+        NSGraphicsContext.restoreGraphicsState()
+
+        rep.size = NSSize(width: side, height: side)
+        return rep
     }
 }
