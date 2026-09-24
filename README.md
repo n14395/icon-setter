@@ -36,6 +36,16 @@ A small native macOS app for giving folders (and files) custom icons.
   <img src="docs/04-finder-mixed.png" width="720" alt="A Finder window in icon view showing six folders, each with its own custom icon: a different colour and SF Symbol per folder">
 </p>
 
+## Install
+
+```sh
+brew tap n14395/tap
+brew install --cask icon-setter
+```
+
+Or download the `.dmg` from [Releases](../../releases) and drag IconSetter to
+Applications. Requires macOS 15 or later.
+
 ## Building
 
 `build.sh` follows the same contract as the other apps under `~/build`:
