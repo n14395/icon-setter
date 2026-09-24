@@ -1,4 +1,8 @@
-# Icon Setter
+<p align="center">
+  <img src="docs/app-icon.png" width="128" alt="Icon Setter's app icon: a fanned stack of five folders in tints of indigo on a dark graphite squircle">
+</p>
+
+<h1 align="center">Icon Setter</h1>
 
 A small native macOS app for giving folders (and files) custom icons.
 
