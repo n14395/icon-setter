@@ -90,3 +90,8 @@ swiftc -swift-version 6 -O -parse-as-library -o /tmp/make-app-icon Scripts/make-
 ```
 
 AppKit renders the SVG itself, so nothing beyond the toolchain is needed.
+
+## License
+
+Licensed under the [Apache License, Version 2.0](LICENSE).
+Third-party attribution is in [NOTICE](NOTICE).

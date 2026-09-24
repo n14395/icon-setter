@@ -1,3 +1,6 @@
+// Copyright 2026 Nick Fay
+// SPDX-License-Identifier: Apache-2.0
+
 // Rasterises the app's own icon from Design/AppIcon.svg at every size the
 // asset catalog needs. AppKit renders the SVG natively (gradients, clips and
 // drop-shadow filters included), so this needs nothing beyond the toolchain.

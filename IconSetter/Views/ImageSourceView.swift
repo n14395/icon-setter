@@ -1,3 +1,6 @@
+// Copyright 2026 Nick Fay
+// SPDX-License-Identifier: Apache-2.0
+
 import SwiftUI
 
 /// Drop zone for using an image file (PNG, JPEG, SVG, PDF, ICNS…) as the icon.
