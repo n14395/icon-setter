@@ -30,7 +30,7 @@ APP_NAME="IconSetter"
 BUILD_DIR="$PWD/build"
 APP_PATH="$BUILD_DIR/$APP_NAME.app"
 DMG_PATH="$BUILD_DIR/$APP_NAME.dmg"
-BUNDLE_ID="com.n14395.icon-setter"
+BUNDLE_ID="com.n14395.IconSetter"
 ENTITLEMENTS=""
 # Where --sparkle builds look for updates. `--sparkle --publish` attaches appcast.xml
 # to every GitHub release, and this URL always resolves to the newest release's copy.

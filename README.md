@@ -80,7 +80,7 @@ then relaunch Finder or log out and back in.
 ## Layout
 
 ```
-project.yml                      xcodegen project definition (bundle id com.n14395.icon-setter)
+project.yml                      xcodegen project definition (bundle id com.n14395.IconSetter)
 IconSetter/App/                  App entry point, delegate (Services + open-files), AppModel state
 IconSetter/Models/               GeneratedIconSpec (the design), TargetItem
 IconSetter/Rendering/            IconArtworkView (the design, drawn at any size) and IconRenderer

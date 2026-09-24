@@ -315,7 +315,7 @@
 					"@executable_path/../Frameworks",
 				);
 				MARKETING_VERSION = 0.2;
-				PRODUCT_BUNDLE_IDENTIFIER = "com.n14395.icon-setter";
+				PRODUCT_BUNDLE_IDENTIFIER = "com.n14395.IconSetter";
 				PRODUCT_NAME = "Icon Setter";
 				SDKROOT = macosx;
 				SWIFT_EMIT_LOC_STRINGS = YES;
@@ -333,7 +333,7 @@
 					"@executable_path/../Frameworks",
 				);
 				MARKETING_VERSION = 0.2;
-				PRODUCT_BUNDLE_IDENTIFIER = "com.n14395.icon-setter";
+				PRODUCT_BUNDLE_IDENTIFIER = "com.n14395.IconSetter";
 				PRODUCT_NAME = "Icon Setter";
 				SDKROOT = macosx;
 				SWIFT_EMIT_LOC_STRINGS = YES;
