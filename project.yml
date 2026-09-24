@@ -54,7 +54,7 @@ targets:
               - public.item
     settings:
       base:
-        MARKETING_VERSION: "0.1"
+        MARKETING_VERSION: "0.2"
         PRODUCT_BUNDLE_IDENTIFIER: com.n14395.icon-setter
         PRODUCT_NAME: Icon Setter
         ASSETCATALOG_COMPILER_APPICON_NAME: AppIcon
